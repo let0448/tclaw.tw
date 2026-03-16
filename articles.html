@@ -1,0 +1,35 @@
+---
+layout: default
+title: 文章專欄
+description: 張桐嘉律師的法律知識專欄，提供不動產法律、強制執行、訴訟實務等實用文章。
+---
+
+<section class="articles-header">
+  <div class="container">
+    <h1>文章專欄</h1>
+    <p>實用法律知識，幫助您了解自身權益與因應之道。</p>
+  </div>
+</section>
+
+<section class="articles-section">
+  <div class="container">
+    {% if site.posts.size > 0 %}
+    <div class="articles-grid">
+      {% for post in site.posts %}
+      <div class="article-card">
+        <a href="{{ post.url | relative_url }}">
+          {% if post.category %}<span class="card-category">{{ post.category }}</span>{% endif %}
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.description | truncate: 120 }}</p>
+          <span class="card-date">{{ post.date | date: "%Y/%m/%d" }}</span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 80px 0;">
+      <p style="font-size: 16px; color: var(--gray-600);">文章準備中，敬請期待。</p>
+    </div>
+    {% endif %}
+  </div>
+</section>

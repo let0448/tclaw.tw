@@ -1,0 +1,29 @@
+{% assign home = site.baseurl | append: "/" %}
+{% if page.url == "/" %}{% assign nav_prefix = "" %}{% else %}{% assign nav_prefix = home %}{% endif %}
+<!-- Navigation -->
+<nav id="nav">
+  <div class="nav-container">
+    <a href="{{ home }}" class="nav-logo">
+      <div class="logo-icon">張</div>
+      <div class="logo-text">
+        <span class="logo-main">張桐嘉律師</span>
+        <span class="logo-sub">Attorney at Law</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="{{ nav_prefix }}#about">律師簡介</a></li>
+      <li><a href="{{ nav_prefix }}#services">服務項目</a></li>
+      <li><a href="{{ nav_prefix }}#expertise">核心專長</a></li>
+      <li><a href="{{ home }}articles">文章專欄</a></li>
+      <li><a href="{{ nav_prefix }}#contact">聯絡</a></li>
+      <li><a href="{{ nav_prefix }}#booking" class="nav-cta">立即預約</a></li>
+    </ul>
+    
+    <button class="hamburger" id="hamburger" aria-label="選單">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>

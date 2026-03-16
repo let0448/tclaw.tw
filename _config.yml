@@ -1,0 +1,37 @@
+# Site settings
+title: "張桐嘉律師｜不動產 · 強制執行 · 訴訟｜高雄律師"
+description: "張桐嘉律師，專精不動產法律、強制執行程序、民刑事訴訟。高雄在地深耕，從策略擬定到庭審攻防，為當事人爭取最大權益。諮詢專線 07-553-9799。"
+url: "https://tclaw.tw"
+baseurl: ""
+author: "張桐嘉律師"
+phone: "07-553-9799"
+phone_link: "075539799"
+address: "高雄市鼓山區明誠四路10號12樓"
+maps_url: "https://maps.app.goo.gl/pb1y1MqwMMTEMHmt6"
+booking_url: "https://calendar.app.google/b6Syr8dhPJFfH6mJA"
+ga_id: "G-EQSQB2EMZ2"
+google_verification: "eYUuBUBu-eOKzq93ctqaTxgbq-oGObIqw4VnDe30Nwo"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+permalink: /articles/:title/
+timezone: Asia/Taipei
+
+# Collections
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "article"
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - CNAME
