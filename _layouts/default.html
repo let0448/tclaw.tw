@@ -378,6 +378,28 @@
   }
   </script>
   {% endif %}
+
+  <!-- Person Schema for AEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "張桐嘉",
+    "jobTitle": "律師",
+    "url": "https://tclaw.tw",
+    "knowsAbout": ["不動產法律", "強制執行", "民事訴訟", "遺產繼承", "勞資爭議"],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "理行法律事務所"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "高雄市",
+      "addressCountry": "TW"
+    },
+    "telephone": "07-553-9799"
+  }
+  </script>
 </head>
 <body>
   {% include nav.html %}

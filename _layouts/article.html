@@ -59,3 +59,45 @@ layout: default
     </div>
   </div>
 </section>
+
+<!-- FAQ Schema (auto-generated from H2 questions) -->
+{% assign faq_items = "" %}
+{% assign paragraphs = content | split: "<h2" %}
+{% for block in paragraphs %}
+  {% if block contains "？" %}
+    {% assign after_tag = block | split: ">" | shift | join: ">" %}
+    {% assign question = after_tag | split: "</h2>" | first | strip_html | strip %}
+    {% if question contains "？" %}
+      {% assign answer_html = after_tag | split: "</h2>" | last %}
+      {% assign first_p = answer_html | split: "</p>" | first | strip_html | strip | truncate: 200 %}
+      {% if first_p.size > 0 %}
+        {% if faq_items != "" %}
+          {% assign faq_items = faq_items | append: "|||" %}
+        {% endif %}
+        {% assign faq_items = faq_items | append: question | append: ":::" | append: first_p %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% if faq_items != "" %}
+{% assign faq_array = faq_items | split: "|||" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in faq_array %}
+    {% assign parts = item | split: ":::" %}
+    {
+      "@type": "Question",
+      "name": {{ parts[0] | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ parts[1] | jsonify }}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
