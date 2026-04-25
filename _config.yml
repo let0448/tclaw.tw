@@ -21,6 +21,15 @@ kramdown:
 permalink: /articles/:title/
 timezone: Asia/Taipei
 
+# Plugins (already bundled with github-pages gem)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# RSS feed config
+feed:
+  posts_limit: 20
+
 # Collections
 defaults:
   - scope:
