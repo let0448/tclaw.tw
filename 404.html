@@ -1,19 +1,40 @@
 ---
-layout: default
-title: 頁面不存在
-description: 您要找的頁面不存在。
+layout: page
+title: 找不到頁面
+subtitle: 404 Not Found
 permalink: /404.html
+sitemap: false
 ---
 
-<section class="articles-header">
-  <div class="container">
-    <h1>404 — 頁面不存在</h1>
-    <p>您要找的頁面可能已移除或網址有誤。</p>
-  </div>
-</section>
+<p style="font-size: 17px; color: var(--gray-600); margin-bottom: 32px; max-width: none;">
+您要找的頁面可能已搬移、刪除，或網址輸入有誤。
+</p>
 
-<section class="articles-section" style="min-height: 40vh;">
-  <div class="container" style="text-align: center; padding: 80px 0;">
-    <a href="{{ site.baseurl }}/" class="btn btn-primary">回到首頁</a>
-  </div>
-</section>
+## 您可以這樣做
+
+- 回到 [首頁](/) 重新瀏覽
+- 至 [文章專欄](/articles) 查看法律知識文章
+- 直接 [預約諮詢](/#booking) 或來電 <a href="tel:{{ site.phone_link }}">{{ site.phone }}</a>
+
+## 熱門文章分類
+
+{% assign raw_cats = site.posts | map: "category" | uniq | compact %}
+{% assign buf = "" %}
+{% for c in raw_cats %}
+  {% assign n = site.posts | where: "category", c | size %}
+  {% assign p = n | prepend: "0000" | slice: -4, 4 %}
+  {% assign buf = buf | append: p | append: "::" | append: c | append: "||" %}
+{% endfor %}
+{% assign sorted = buf | split: "||" | sort | reverse %}
+
+<ul>
+{% for entry in sorted %}
+  {% if entry == "" %}{% continue %}{% endif %}
+  {% assign parts = entry | split: "::" %}
+  <li><a href="/articles#{{ parts[1] | url_encode }}">{{ parts[1] }}</a>（{{ parts[0] | plus: 0 }} 篇）</li>
+{% endfor %}
+</ul>
+
+<p style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--gray-200); color: var(--gray-400); font-size: 14px;">
+如果是從外部連結進入此頁，可能是該連結已過期。歡迎來信告知，我們會儘速處理。
+</p>

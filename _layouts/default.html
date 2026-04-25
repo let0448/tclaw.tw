@@ -69,6 +69,8 @@
     /* ========== Utilities ========== */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .skip-link { position: absolute; top: -40px; left: 16px; background: var(--gold); color: var(--navy); padding: 10px 20px; border-radius: 4px; font-size: 14px; font-weight: 600; text-decoration: none; z-index: 1100; transition: top 0.2s ease; }
+    .skip-link:focus { top: 16px; outline: 2px solid var(--navy); outline-offset: 2px; }
     .section-label { font-family: var(--display); font-size: 13px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; display: block; }
     .section-title { font-family: var(--serif); font-size: clamp(28px, 1.5vw + 24px, 40px); font-weight: 700; margin-bottom: 16px; }
     .section-subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 48px; }
@@ -378,6 +380,28 @@
       .expertise-number { font-size: 36px; }
       .floating-cta { font-size: 13px; padding: 12px 20px; }
     }
+
+    /* ========== Print Styles ========== */
+    @media print {
+      *, *::before, *::after { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+      body { font-size: 12pt; line-height: 1.6; color: #000; }
+      nav, footer, .floating-cta, .scroll-indicator, .skip-link, .reading-progress, .article-sidebar, .toc-desktop, .toc-mobile, .article-inline-cta, .hamburger, .article-filters, .breadcrumb { display: none !important; }
+      .article-header, .articles-header { background: #fff !important; padding: 0 0 16pt; border-bottom: 1pt solid #000; margin-bottom: 16pt; }
+      .article-header h1, .articles-header h1 { color: #000 !important; font-size: 22pt; line-height: 1.3; }
+      .article-meta { color: #000 !important; font-size: 10pt; }
+      .article-category { background: transparent !important; border: 1pt solid #000; padding: 1pt 6pt; }
+      .article-body, .articles-section { background: #fff !important; padding: 0 !important; }
+      .article-layout { display: block !important; }
+      .article-content { background: #fff !important; padding: 0 !important; box-shadow: none !important; max-width: 100% !important; }
+      .article-content h2, .article-content h3 { color: #000 !important; border-color: #000 !important; page-break-after: avoid; }
+      .article-content p, .article-content li { font-size: 12pt; line-height: 1.7; max-width: none !important; orphans: 3; widows: 3; }
+      .article-content blockquote { border-left: 2pt solid #000; background: transparent !important; page-break-inside: avoid; }
+      .article-content a { color: #000 !important; text-decoration: underline; }
+      .article-content img { max-width: 100% !important; page-break-inside: avoid; }
+      a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 10pt; word-break: break-all; }
+      a[href^="#"]::after, a[href^="tel:"]::after, a[href^="mailto:"]::after { content: ""; }
+      @page { margin: 1.5cm; }
+    }
   </style>
   
   {% if page.layout == "article" %}
@@ -466,13 +490,16 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳至主要內容</a>
   {% if page.layout == "article" %}
   <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
   {% endif %}
 
   {% include nav.html %}
 
-  {{ content }}
+  <main id="main-content">
+    {{ content }}
+  </main>
 
   {% include footer.html %}
 
