@@ -13,14 +13,23 @@
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-title">主要服務</h3>
+        <h3 class="footer-title">文章分類</h3>
         <ul class="footer-links">
-          <li><a href="{{ site.baseurl }}/#about">律師簡介</a></li>
-          <li><a href="{{ site.baseurl }}/#services">服務項目</a></li>
-          <li><a href="{{ site.baseurl }}/#expertise">核心專長</a></li>
-          <li><a href="{{ site.baseurl }}/#process">委任流程</a></li>
-          <li><a href="{{ site.baseurl }}/#booking">預約諮詢</a></li>
-          <li><a href="{{ site.baseurl }}/articles">文章專欄</a></li>
+          {% assign footer_raw = site.posts | map: "category" | uniq | compact %}
+          {% assign footer_buf = "" %}
+          {% for c in footer_raw %}
+            {% assign n = site.posts | where: "category", c | size %}
+            {% assign p = n | prepend: "0000" | slice: -4, 4 %}
+            {% assign footer_buf = footer_buf | append: p | append: "::" | append: c | append: "||" %}
+          {% endfor %}
+          {% assign footer_sorted = footer_buf | split: "||" | sort | reverse %}
+          {% for entry in footer_sorted %}
+            {% if entry == "" %}{% continue %}{% endif %}
+            {% assign parts = entry | split: "::" %}
+            {% assign cname = parts[1] %}
+            <li><a href="{{ site.baseurl }}/articles#{{ cname | url_encode }}">{{ cname }}</a></li>
+          {% endfor %}
+          <li><a href="{{ site.baseurl }}/articles">所有文章 →</a></li>
         </ul>
       </div>
 

@@ -14,9 +14,34 @@ description: 張桐嘉律師的法律知識專欄，提供不動產法律、強�
 <section class="articles-section">
   <div class="container">
     {% if site.posts.size > 0 %}
-    <div class="articles-grid">
+    {% assign raw_cats = site.posts | map: "category" | uniq | compact %}
+    {% assign cat_buffer = "" %}
+    {% for cat in raw_cats %}
+      {% assign cnt = site.posts | where: "category", cat | size %}
+      {% assign padded = cnt | prepend: "0000" %}
+      {% assign padded = padded | slice: -4, 4 %}
+      {% assign cat_buffer = cat_buffer | append: padded | append: "::" | append: cat | append: "||" %}
+    {% endfor %}
+    {% assign sorted_cats = cat_buffer | split: "||" | sort | reverse %}
+
+    <div class="article-filters" id="articleFilters" role="tablist" aria-label="文章分類篩選">
+      <button class="filter-tab active" data-category="all" type="button" role="tab" aria-selected="true">
+        全部 <span class="filter-count">{{ site.posts | size }}</span>
+      </button>
+      {% for entry in sorted_cats %}
+        {% if entry == "" %}{% continue %}{% endif %}
+        {% assign parts = entry | split: "::" %}
+        {% assign cat_name = parts[1] %}
+        {% assign cat_count = parts[0] | plus: 0 %}
+        <button class="filter-tab" data-category="{{ cat_name }}" type="button" role="tab" aria-selected="false">
+          {{ cat_name }} <span class="filter-count">{{ cat_count }}</span>
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="articles-grid" id="articlesGrid">
       {% for post in site.posts %}
-      <div class="article-card">
+      <div class="article-card" data-category="{{ post.category | default: 'all' }}">
         <a href="{{ post.url | relative_url }}">
           {% if post.category %}<span class="card-category">{{ post.category }}</span>{% endif %}
           <h2>{{ post.title }}</h2>
@@ -26,6 +51,8 @@ description: 張桐嘉律師的法律知識專欄，提供不動產法律、強�
       </div>
       {% endfor %}
     </div>
+
+    <p class="articles-empty" id="articlesEmpty">此分類目前沒有文章。</p>
     {% else %}
     <div style="text-align: center; padding: 80px 0;">
       <p style="font-size: 16px; color: var(--gray-600);">文章準備中，敬請期待。</p>
@@ -33,3 +60,49 @@ description: 張桐嘉律師的法律知識專欄，提供不動產法律、強�
     {% endif %}
   </div>
 </section>
+
+<script>
+(function() {
+  const filterContainer = document.getElementById('articleFilters');
+  if (!filterContainer) return;
+  const tabs = filterContainer.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('#articlesGrid .article-card');
+  const emptyMsg = document.getElementById('articlesEmpty');
+
+  function applyFilter(category) {
+    let visible = 0;
+    cards.forEach(function(card) {
+      const match = category === 'all' || card.dataset.category === category;
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    tabs.forEach(function(t) {
+      const isActive = t.dataset.category === category;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    if (emptyMsg) emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      const cat = tab.dataset.category;
+      applyFilter(cat);
+      const newHash = cat === 'all' ? '' : '#' + encodeURIComponent(cat);
+      history.replaceState(null, '', window.location.pathname + newHash);
+    });
+  });
+
+  function applyFromHash() {
+    if (!window.location.hash) {
+      applyFilter('all');
+      return;
+    }
+    const hashCat = decodeURIComponent(window.location.hash.slice(1));
+    const exists = Array.from(tabs).some(function(t) { return t.dataset.category === hashCat; });
+    applyFilter(exists ? hashCat : 'all');
+  }
+  applyFromHash();
+  window.addEventListener('hashchange', applyFromHash);
+})();
+</script>

@@ -312,6 +312,13 @@
     .sidebar-related a span { font-size: 13px; color: var(--gray-400); }
     
     /* ========== Article List ========== */
+    .article-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid rgba(200,164,92,0.2); }
+    .filter-tab { background: var(--white); border: 1px solid rgba(200,164,92,0.3); color: var(--gray-600); padding: 10px 18px; border-radius: 4px; font-size: 13px; letter-spacing: 1px; cursor: pointer; font-family: inherit; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; }
+    .filter-tab:hover { border-color: var(--gold); color: var(--navy); }
+    .filter-tab.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .filter-count { font-size: 11px; color: var(--gray-400); font-family: var(--display); padding: 1px 7px; background: var(--gray-100); border-radius: 10px; min-width: 22px; text-align: center; line-height: 1.4; }
+    .filter-tab.active .filter-count { background: rgba(200,164,92,0.2); color: var(--gold-light); }
+    .articles-empty { display: none; text-align: center; padding: 48px 0; color: var(--gray-600); font-size: 15px; }
     .articles-header { background: var(--navy); color: var(--white); padding: 120px 0 60px; }
     .articles-header h1 { font-family: var(--serif); font-size: 40px; font-weight: 700; margin-bottom: 12px; }
     .articles-header p { font-size: 16px; color: rgba(255,255,255,0.6); }
