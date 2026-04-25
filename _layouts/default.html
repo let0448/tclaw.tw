@@ -267,6 +267,19 @@
     .article-content .article-inline-cta p { font-size: 14px; color: rgba(255,255,255,0.75); margin: 0 0 20px; line-height: 1.7; max-width: none; }
     .article-content .article-inline-cta .btn { width: 100%; justify-content: center; }
 
+    /* ========== Mobile Sticky CTA (article pages only) ========== */
+    .mobile-sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 2px solid var(--gold); padding: 12px 16px; display: none; align-items: center; gap: 8px; box-shadow: 0 -4px 20px rgba(0,0,0,0.18); z-index: 998; transform: translateY(100%); transition: transform 0.3s ease; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+    .mobile-sticky-cta.visible { transform: translateY(0); }
+    .mobile-sticky-cta.dismissed { display: none !important; }
+    .mobile-sticky-cta a { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--gold); color: var(--navy); padding: 12px 16px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.2; min-height: 44px; }
+    .mobile-sticky-cta a:active { background: var(--gold-light); }
+    .mobile-sticky-cta .dismiss-btn { background: transparent; border: none; color: rgba(255,255,255,0.5); width: 36px; height: 36px; min-width: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; flex-shrink: 0; }
+    .mobile-sticky-cta .dismiss-btn:hover, .mobile-sticky-cta .dismiss-btn:focus-visible { color: var(--white); }
+    @media (max-width: 900px) {
+      .mobile-sticky-cta { display: flex; }
+      body.has-sticky-cta .article-body { padding-bottom: 100px; }
+    }
+
     /* ========== Floating CTA ========== */
     .floating-cta { position: fixed; bottom: 32px; right: 32px; background: var(--gold); color: var(--navy); padding: 16px 28px; border-radius: 50px; box-shadow: 0 4px 20px rgba(200, 164, 92, 0.4); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 999; }
     .floating-cta.visible { opacity: 1; transform: translateY(0); }
@@ -418,7 +431,7 @@
     @media print {
       *, *::before, *::after { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
       body { font-size: 12pt; line-height: 1.6; color: #000; }
-      nav, footer, .floating-cta, .scroll-indicator, .skip-link, .reading-progress, .article-sidebar, .toc-desktop, .toc-mobile, .article-inline-cta, .article-share, .hamburger, .article-filters, .breadcrumb { display: none !important; }
+      nav, footer, .floating-cta, .scroll-indicator, .skip-link, .reading-progress, .article-sidebar, .toc-desktop, .toc-mobile, .article-inline-cta, .article-share, .mobile-sticky-cta, .hamburger, .article-filters, .breadcrumb { display: none !important; }
       .article-header, .articles-header { background: #fff !important; padding: 0 0 16pt; border-bottom: 1pt solid #000; margin-bottom: 16pt; }
       .article-header h1, .articles-header h1 { color: #000 !important; font-size: 22pt; line-height: 1.3; }
       .article-meta { color: #000 !important; font-size: 10pt; }
@@ -536,6 +549,23 @@
 
   {% include footer.html %}
 
+  {% if page.layout == "article" %}
+  <aside class="mobile-sticky-cta" id="mobileStickyCta" aria-label="諮詢">
+    <a href="tel:{{ site.phone_link }}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      立即諮詢 {{ site.phone }}
+    </a>
+    <button type="button" class="dismiss-btn" id="dismissStickyCta" aria-label="關閉諮詢按鈕">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </aside>
+  {% endif %}
+
   <!-- Floating CTA (hidden on article pages to avoid duplicating sidebar CTA) -->
   {% unless page.layout == "article" %}
   <a href="{% if page.url == '/' %}#booking{% else %}{{ site.url }}/#booking{% endif %}" class="floating-cta" id="floatingCta">
@@ -633,6 +663,30 @@
       if (inlineCtaTpl && headings.length >= 4 && window.matchMedia('(max-width: 900px)').matches) {
         const target = headings[Math.floor(headings.length / 2)];
         target.parentNode.insertBefore(inlineCtaTpl.content.cloneNode(true), target);
+      }
+
+      const stickyCta = document.getElementById('mobileStickyCta');
+      if (stickyCta) {
+        const dismissed = sessionStorage.getItem('stickyCta-dismissed') === 'true';
+        if (dismissed) {
+          stickyCta.classList.add('dismissed');
+        } else {
+          document.body.classList.add('has-sticky-cta');
+          const onScrollCta = () => {
+            const showAfter = Math.max(window.innerHeight * 0.3, 300);
+            stickyCta.classList.toggle('visible', window.scrollY > showAfter);
+          };
+          window.addEventListener('scroll', onScrollCta, { passive: true });
+          onScrollCta();
+          const dismissBtn = document.getElementById('dismissStickyCta');
+          if (dismissBtn) {
+            dismissBtn.addEventListener('click', () => {
+              stickyCta.classList.add('dismissed');
+              document.body.classList.remove('has-sticky-cta');
+              try { sessionStorage.setItem('stickyCta-dismissed', 'true'); } catch (e) {}
+            });
+          }
+        }
       }
 
       const copyBtn = document.getElementById('copyLinkBtn');
