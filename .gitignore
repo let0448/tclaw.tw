@@ -1,0 +1,7 @@
+_site/
+.claude/
+Gemfile.lock
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/

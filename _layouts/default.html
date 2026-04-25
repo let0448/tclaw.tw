@@ -70,7 +70,7 @@
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     .section-label { font-family: var(--display); font-size: 13px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; display: block; }
-    .section-title { font-family: var(--serif); font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+    .section-title { font-family: var(--serif); font-size: clamp(28px, 1.5vw + 24px, 40px); font-weight: 700; margin-bottom: 16px; }
     .section-subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 48px; }
     
     /* ========== Navigation ========== */
@@ -78,28 +78,28 @@
     nav.scrolled { background: rgba(10, 22, 40, 0.98); }
     .nav-container { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
-    .logo-icon { width: 24px; height: 24px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; border-radius: 2px; }
+    .logo-icon { width: 24px; height: 24px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; border-radius: 2px; }
     .logo-text { display: flex; flex-direction: column; gap: 2px; }
     .logo-main { font-size: 15px; font-weight: 600; letter-spacing: 0.5px; }
     .logo-sub { font-size: 10px; letter-spacing: 2px; opacity: 0.4; text-transform: uppercase; }
     .nav-menu { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-menu a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 13px; letter-spacing: 1px; transition: color 0.3s ease; }
     .nav-menu a:hover { color: var(--gold); }
-    .nav-cta { padding: 10px 24px; border: 1px solid var(--gold); color: var(--gold) !important; border-radius: 4px; transition: all 0.3s ease; }
+    .nav-cta { padding: 12px 24px; border: 1px solid var(--gold); color: var(--gold) !important; border-radius: 4px; transition: all 0.3s ease; display: inline-flex; align-items: center; min-height: 44px; }
     .nav-cta:hover { background: var(--gold); color: var(--navy) !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; min-width: 44px; min-height: 44px; }
     .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all 0.3s ease; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
     
     /* ========== Hero Section ========== */
-    .hero { background: var(--navy); color: var(--white); padding: 120px 0 80px; min-height: 100vh; display: flex; align-items: center; position: relative; }
+    .hero { background: var(--navy); color: var(--white); padding: 120px 0 80px; min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; position: relative; }
     .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     .hero-label { font-family: var(--display); font-size: 12px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; }
-    .hero h1 { font-family: var(--serif); font-size: 56px; font-weight: 700; line-height: 1.2; margin-bottom: 24px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(28px, 3vw + 22px, 56px); font-weight: 700; line-height: 1.2; margin-bottom: 24px; }
     .hero h1 .accent { color: var(--gold); }
-    .hero-subtitle { font-size: 16px; letter-spacing: 2px; color: rgba(255, 255, 255, 0.7); margin-bottom: 24px; }
+    .hero-subtitle { font-size: 16px; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.7); margin-bottom: 24px; }
     .hero-description { font-size: 15px; line-height: 1.8; color: rgba(255, 255, 255, 0.6); margin-bottom: 24px; }
     .hero-pricing { font-size: 13px; letter-spacing: 1px; color: var(--gold); margin-bottom: 32px; }
     .hero-buttons { display: flex; gap: 16px; }
@@ -115,7 +115,7 @@
     .stat-number { font-family: var(--display); font-size: 48px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
     .stat-label { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.4; }
     .hero-quote { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(200, 164, 92, 0.7); text-align: center; padding-top: 32px; border-top: 1px solid rgba(200, 164, 92, 0.15); }
-    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0.4; }
+    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0.6; }
     .scroll-indicator span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
     .scroll-line { width: 1px; height: 40px; background: var(--white); animation: scrollDown 2s ease-in-out infinite; }
     @keyframes scrollDown { 0%, 100% { opacity: 0; transform: translateY(0); } 50% { opacity: 1; transform: translateY(10px); } }
@@ -178,7 +178,7 @@
     .pricing-card { background: rgba(200, 164, 92, 0.05); border: 1px solid rgba(200, 164, 92, 0.2); border-radius: 8px; padding: 32px; margin-bottom: 32px; }
     .pricing-item { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; }
     .pricing-item:not(:last-child) { border-bottom: 1px solid rgba(200, 164, 92, 0.15); }
-    .pricing-label { font-size: 13px; letter-spacing: 2px; color: rgba(200, 164, 92, 0.8); }
+    .pricing-label { font-size: 13px; letter-spacing: 0.5px; color: rgba(200, 164, 92, 0.8); }
     .pricing-value { text-align: right; }
     .pricing-amount { font-family: var(--display); font-size: 28px; font-weight: 700; color: var(--gold); display: block; }
     .pricing-unit { font-size: 14px; color: rgba(255, 255, 255, 0.4); }
@@ -208,6 +208,31 @@
     footer p { font-size: 14px; color: rgba(255, 255, 255, 0.6); }
     footer p:first-child { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
     
+    /* ========== Reading Progress Bar (article pages) ========== */
+    .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--gold); z-index: 1001; transition: width 0.1s linear; pointer-events: none; }
+
+    /* ========== Article TOC ========== */
+    .toc { background: var(--white); border: 1px solid rgba(200,164,92,0.15); border-radius: 8px; padding: 20px 24px; }
+    .toc-title { font-family: var(--serif); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0; }
+    .toc ol { list-style: none; padding: 0; margin: 12px 0 0; counter-reset: toc; }
+    .toc li { counter-increment: toc; padding: 8px 0; }
+    .toc li + li { border-top: 1px solid var(--gray-200); }
+    .toc a { display: block; font-size: 14px; line-height: 1.5; color: var(--gray-600); text-decoration: none; padding-left: 28px; position: relative; transition: color 0.2s ease; }
+    .toc a::before { content: counter(toc, decimal-leading-zero); position: absolute; left: 0; top: 1px; font-family: var(--display); font-size: 12px; font-weight: 600; color: var(--gold); }
+    .toc a:hover { color: var(--navy); }
+    .toc-desktop { margin-bottom: 24px; }
+    .toc-mobile { display: none; margin-bottom: 32px; }
+    .toc-mobile summary { cursor: pointer; list-style: none; padding: 4px 0; display: flex; justify-content: space-between; align-items: center; }
+    .toc-mobile summary::-webkit-details-marker { display: none; }
+    .toc-mobile summary::after { content: '＋'; color: var(--gold); font-size: 18px; line-height: 1; }
+    .toc-mobile[open] summary::after { content: '－'; }
+
+    /* ========== Article Inline CTA (mobile only, mid-article) ========== */
+    .article-content .article-inline-cta { background: var(--navy); color: var(--white); padding: 28px 24px; border-radius: 8px; margin: 40px 0; text-align: center; }
+    .article-content .article-inline-cta h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; color: var(--white); }
+    .article-content .article-inline-cta p { font-size: 14px; color: rgba(255,255,255,0.75); margin: 0 0 20px; line-height: 1.7; max-width: none; }
+    .article-content .article-inline-cta .btn { width: 100%; justify-content: center; }
+
     /* ========== Floating CTA ========== */
     .floating-cta { position: fixed; bottom: 32px; right: 32px; background: var(--gold); color: var(--navy); padding: 16px 28px; border-radius: 50px; box-shadow: 0 4px 20px rgba(200, 164, 92, 0.4); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 999; }
     .floating-cta.visible { opacity: 1; transform: translateY(0); }
@@ -216,16 +241,29 @@
     /* ========== Animations ========== */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
     .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* ========== Reduced Motion ========== */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-line { animation: none; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
     
     /* ========== Article Styles ========== */
     .article-header { background: var(--navy); color: var(--white); padding: 120px 0 60px; }
     .breadcrumb { font-size: 13px; margin-bottom: 24px; }
     .breadcrumb a { color: var(--gold-light); text-decoration: none; }
     .breadcrumb a:hover { color: var(--gold); }
-    .breadcrumb span { color: rgba(255,255,255,0.4); margin: 0 8px; }
-    .article-header h1 { font-family: var(--serif); font-size: 40px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
-    .article-meta { font-size: 14px; color: rgba(255,255,255,0.5); display: flex; gap: 24px; align-items: center; }
-    .article-meta time { color: rgba(255,255,255,0.6); }
+    .breadcrumb span { color: rgba(255,255,255,0.7); margin: 0 8px; }
+    .article-header h1 { font-family: var(--serif); font-size: clamp(24px, 2vw + 18px, 40px); font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
+    .reading-time { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .article-meta { font-size: 14px; color: rgba(255,255,255,0.75); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+    .article-meta time { color: rgba(255,255,255,0.8); }
     .article-category { background: rgba(200,164,92,0.15); color: var(--gold-light); padding: 4px 12px; border-radius: 4px; font-size: 12px; letter-spacing: 1px; }
     
     .article-body { background: var(--cream); padding: 80px 0; }
@@ -234,8 +272,8 @@
     .article-content h2 { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--gray-800); margin: 40px 0 16px; padding-top: 24px; border-top: 1px solid var(--gray-200); }
     .article-content h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
     .article-content h3 { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--gray-800); margin: 32px 0 12px; }
-    .article-content p { font-size: 16px; line-height: 1.9; color: var(--text); margin-bottom: 20px; }
-    .article-content ul, .article-content ol { margin: 16px 0 20px 24px; }
+    .article-content p { font-size: 16px; line-height: 1.9; color: var(--text); margin-bottom: 20px; max-width: 38em; }
+    .article-content ul, .article-content ol { margin: 16px 0 20px 24px; max-width: 38em; }
     .article-content li { font-size: 16px; line-height: 1.8; color: var(--text); margin-bottom: 8px; }
     .article-content blockquote { border-left: 3px solid var(--gold); padding: 16px 24px; margin: 24px 0; background: rgba(200,164,92,0.05); border-radius: 0 4px 4px 0; }
     .article-content blockquote p { color: var(--gray-600); font-style: italic; margin-bottom: 0; }
@@ -276,7 +314,6 @@
       .nav-menu li { width: 100%; text-align: center; padding: 16px 0; border-bottom: 1px solid rgba(200, 164, 92, 0.1); }
       .hamburger { display: flex; }
       .hero-container { grid-template-columns: 1fr; gap: 48px; }
-      .hero h1 { font-size: 40px; }
       .stats-grid { grid-template-columns: 1fr; gap: 24px; }
       .stat-item::after { display: none; }
       .about-container { grid-template-columns: 1fr; gap: 40px; }
@@ -288,13 +325,13 @@
       .contact-info { grid-template-columns: 1fr; }
       .article-layout { grid-template-columns: 1fr; }
       .article-sidebar { position: static; }
+      .toc-desktop { display: none; }
+      .toc-mobile { display: block; }
       .articles-grid { grid-template-columns: 1fr; }
     }
     
     @media (max-width: 768px) {
-      .section-title { font-size: 32px; }
       .hero { padding: 100px 0 60px; }
-      .hero h1 { font-size: 36px; }
       .hero-buttons { flex-direction: column; }
       .btn { width: 100%; justify-content: center; }
       .services-grid { grid-template-columns: 1fr; }
@@ -302,14 +339,11 @@
       .process-step::after { display: none; }
       .expertise-card { padding: 32px; }
       .floating-cta { bottom: 16px; right: 16px; padding: 14px 24px; }
-      .article-header h1 { font-size: 28px; }
       .article-content { padding: 24px; }
     }
     
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
-      .hero h1 { font-size: 28px; }
-      .section-title { font-size: 28px; }
       .stat-number { font-size: 36px; }
       .expertise-number { font-size: 36px; }
       .floating-cta { font-size: 13px; padding: 12px 20px; }
@@ -402,13 +436,18 @@
   </script>
 </head>
 <body>
+  {% if page.layout == "article" %}
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  {% endif %}
+
   {% include nav.html %}
 
   {{ content }}
 
   {% include footer.html %}
 
-  <!-- Floating CTA -->
+  <!-- Floating CTA (hidden on article pages to avoid duplicating sidebar CTA) -->
+  {% unless page.layout == "article" %}
   <a href="{% if page.url == '/' %}#booking{% else %}{{ site.url }}/#booking{% endif %}" class="floating-cta" id="floatingCta">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -418,6 +457,7 @@
     </svg>
     立即預約
   </a>
+  {% endunless %}
 
   <script>
     // Navigation scroll effect
@@ -442,11 +482,13 @@
       });
     });
 
-    // Floating CTA visibility
+    // Floating CTA visibility (may not exist on article pages)
     const floatingCta = document.getElementById('floatingCta');
-    window.addEventListener('scroll', () => {
-      floatingCta.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5);
-    });
+    if (floatingCta) {
+      window.addEventListener('scroll', () => {
+        floatingCta.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5);
+      });
+    }
 
     // Reveal animation on scroll
     const revealObserver = new IntersectionObserver((entries) => {
@@ -455,6 +497,54 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Article-only enhancements: reading progress, TOC, mobile inline CTA
+    const articleContent = document.querySelector('.article-content');
+    if (articleContent) {
+      const progress = document.getElementById('readingProgress');
+      if (progress) {
+        const updateProgress = () => {
+          const rect = articleContent.getBoundingClientRect();
+          const total = Math.max(1, rect.height - window.innerHeight);
+          const ratio = Math.max(0, Math.min(1, -rect.top / total));
+          progress.style.width = (ratio * 100) + '%';
+        };
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+        updateProgress();
+      }
+
+      const headings = articleContent.querySelectorAll('h2[id]');
+      const buildTocList = () => {
+        const ol = document.createElement('ol');
+        headings.forEach(h => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent.trim();
+          li.appendChild(a);
+          ol.appendChild(li);
+        });
+        return ol;
+      };
+      const tocDesktop = document.getElementById('tocDesktop');
+      const tocMobile = document.getElementById('tocMobile');
+      if (headings.length >= 3) {
+        const desktopSlot = document.getElementById('tocDesktopSlot');
+        const mobileSlot = document.getElementById('tocMobileSlot');
+        if (desktopSlot) desktopSlot.appendChild(buildTocList());
+        if (mobileSlot) mobileSlot.appendChild(buildTocList());
+      } else {
+        if (tocDesktop) tocDesktop.remove();
+        if (tocMobile) tocMobile.remove();
+      }
+
+      const inlineCtaTpl = document.getElementById('inlineCtaTemplate');
+      if (inlineCtaTpl && headings.length >= 4 && window.matchMedia('(max-width: 900px)').matches) {
+        const target = headings[Math.floor(headings.length / 2)];
+        target.parentNode.insertBefore(inlineCtaTpl.content.cloneNode(true), target);
+      }
+    }
   </script>
 </body>
 </html>

@@ -13,9 +13,12 @@ layout: default
       {{ page.title }}
     </nav>
     <h1>{{ page.title }}</h1>
+    {% assign char_count = content | strip_html | strip_newlines | strip | size %}
+    {% assign reading_min = char_count | divided_by: 500 | plus: 1 %}
     <div class="article-meta">
       {% if page.category %}<span class="article-category">{{ page.category }}</span>{% endif %}
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y 年 %m 月 %d 日" }}</time>
+      <span class="reading-time">閱讀時間 約 {{ reading_min }} 分鐘</span>
     </div>
   </div>
 </section>
@@ -25,10 +28,28 @@ layout: default
   <div class="container">
     <div class="article-layout">
       <article class="article-content">
+        <details class="toc toc-mobile" id="tocMobile">
+          <summary><span class="toc-title">本文目錄</span></summary>
+          <div id="tocMobileSlot"></div>
+        </details>
         {{ content }}
       </article>
-      
+
+      <template id="inlineCtaTemplate">
+        <aside class="article-inline-cta">
+          <h4>遇到類似情況？</h4>
+          <p>每個案件細節不同，建議由律師親自評估後，提供具體處理方向。</p>
+          <a href="tel:{{ site.phone_link }}" class="btn btn-primary">立即來電 {{ site.phone }}</a>
+        </aside>
+      </template>
+
       <aside class="article-sidebar">
+        <!-- TOC (desktop) -->
+        <div class="toc toc-desktop" id="tocDesktop">
+          <p class="toc-title">本文目錄</p>
+          <div id="tocDesktopSlot"></div>
+        </div>
+
         <!-- CTA -->
         <div class="sidebar-cta">
           <h3>需要法律協助？</h3>
