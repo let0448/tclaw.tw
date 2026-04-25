@@ -251,6 +251,17 @@
     .toc-mobile[open] summary::after { content: '－'; }
 
     /* ========== Article Inline CTA (mobile only, mid-article) ========== */
+    /* ========== Article Share ========== */
+    .article-share { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--gray-200); }
+    .article-share .share-label { display: block; font-family: var(--display); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .share-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: var(--white); border: 1px solid rgba(200,164,92,0.3); border-radius: 4px; color: var(--gray-600); font-size: 13px; font-family: inherit; cursor: pointer; text-decoration: none; line-height: 1; transition: all 0.2s ease; min-height: 40px; }
+    .share-btn:hover { color: var(--navy); border-color: var(--gold); transform: translateY(-1px); }
+    .share-btn svg { flex-shrink: 0; }
+    .share-line:hover { background: #06c755; color: var(--white); border-color: #06c755; }
+    .share-fb:hover { background: #1877f2; color: var(--white); border-color: #1877f2; }
+    .share-btn.copied { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
     .article-content .article-inline-cta { background: var(--navy); color: var(--white); padding: 28px 24px; border-radius: 8px; margin: 40px 0; text-align: center; }
     .article-content .article-inline-cta h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; color: var(--white); }
     .article-content .article-inline-cta p { font-size: 14px; color: rgba(255,255,255,0.75); margin: 0 0 20px; line-height: 1.7; max-width: none; }
@@ -388,7 +399,7 @@
     @media print {
       *, *::before, *::after { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
       body { font-size: 12pt; line-height: 1.6; color: #000; }
-      nav, footer, .floating-cta, .scroll-indicator, .skip-link, .reading-progress, .article-sidebar, .toc-desktop, .toc-mobile, .article-inline-cta, .hamburger, .article-filters, .breadcrumb { display: none !important; }
+      nav, footer, .floating-cta, .scroll-indicator, .skip-link, .reading-progress, .article-sidebar, .toc-desktop, .toc-mobile, .article-inline-cta, .article-share, .hamburger, .article-filters, .breadcrumb { display: none !important; }
       .article-header, .articles-header { background: #fff !important; padding: 0 0 16pt; border-bottom: 1pt solid #000; margin-bottom: 16pt; }
       .article-header h1, .articles-header h1 { color: #000 !important; font-size: 22pt; line-height: 1.3; }
       .article-meta { color: #000 !important; font-size: 10pt; }
@@ -603,6 +614,25 @@
       if (inlineCtaTpl && headings.length >= 4 && window.matchMedia('(max-width: 900px)').matches) {
         const target = headings[Math.floor(headings.length / 2)];
         target.parentNode.insertBefore(inlineCtaTpl.content.cloneNode(true), target);
+      }
+
+      const copyBtn = document.getElementById('copyLinkBtn');
+      if (copyBtn) {
+        const labelEl = copyBtn.querySelector('.copy-text');
+        const original = labelEl ? labelEl.textContent : '';
+        copyBtn.addEventListener('click', async function() {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            if (labelEl) labelEl.textContent = '已複製';
+            copyBtn.classList.add('copied');
+            setTimeout(function() {
+              if (labelEl) labelEl.textContent = original;
+              copyBtn.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            window.prompt('複製此連結：', window.location.href);
+          }
+        });
       }
     }
   </script>
