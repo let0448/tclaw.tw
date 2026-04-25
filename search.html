@@ -1,0 +1,125 @@
+---
+layout: page
+title: 站內搜尋
+subtitle: Search
+permalink: /search/
+sitemap: false
+---
+
+<div class="search-container">
+  <div class="search-input-wrap">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="search" id="searchInput" placeholder="輸入關鍵字（例如：押金、特留分、強制執行）" autocomplete="off" />
+  </div>
+  <p class="search-meta" id="searchMeta">索引載入中…</p>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<script>
+(function() {
+  const input = document.getElementById('searchInput');
+  const meta = document.getElementById('searchMeta');
+  const results = document.getElementById('searchResults');
+  let docs = null;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  function escapeRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(text, query) {
+    const escaped = escapeHtml(text);
+    if (!query) return escaped;
+    const re = new RegExp(escapeRegex(query), 'gi');
+    return escaped.replace(re, function(m) { return '<mark>' + m + '</mark>'; });
+  }
+
+  function snippet(content, query) {
+    if (!content) return '';
+    if (!query) return content.slice(0, 120) + (content.length > 120 ? '…' : '');
+    const idx = content.toLowerCase().indexOf(query.toLowerCase());
+    if (idx < 0) return content.slice(0, 120) + '…';
+    const start = Math.max(0, idx - 40);
+    const end = Math.min(content.length, idx + query.length + 80);
+    return (start > 0 ? '…' : '') + content.slice(start, end) + (end < content.length ? '…' : '');
+  }
+
+  function render(matched, query) {
+    if (matched.length === 0) {
+      results.innerHTML = '<p class="search-empty">沒有找到符合「<strong>' + escapeHtml(query) + '</strong>」的文章。試試其他關鍵字？</p>';
+      return;
+    }
+    results.innerHTML = matched.map(function(d) {
+      const cat = d.category ? '<span class="result-category">' + escapeHtml(d.category) + '</span>' : '';
+      return '<article class="search-result"><a href="' + d.url + '">' +
+        cat +
+        '<h2>' + highlight(d.title, query) + '</h2>' +
+        '<p class="result-snippet">' + highlight(snippet(d.content, query), query) + '</p>' +
+        '<span class="result-date">' + d.date + '</span>' +
+        '</a></article>';
+    }).join('');
+  }
+
+  function runSearch(q) {
+    if (!docs) return;
+    q = q.trim();
+    if (!q) {
+      results.innerHTML = '';
+      meta.textContent = '輸入關鍵字開始搜尋。共 ' + docs.length + ' 篇文章可搜尋。';
+      return;
+    }
+    const lower = q.toLowerCase();
+    const matched = docs.filter(function(d) {
+      return d.title.toLowerCase().indexOf(lower) >= 0 ||
+             (d.content || '').toLowerCase().indexOf(lower) >= 0 ||
+             (d.category || '').toLowerCase().indexOf(lower) >= 0 ||
+             (d.description || '').toLowerCase().indexOf(lower) >= 0;
+    }).sort(function(a, b) {
+      const aTitle = a.title.toLowerCase().indexOf(lower) >= 0;
+      const bTitle = b.title.toLowerCase().indexOf(lower) >= 0;
+      if (aTitle && !bTitle) return -1;
+      if (!aTitle && bTitle) return 1;
+      return new Date(b.date) - new Date(a.date);
+    });
+    meta.textContent = '找到 ' + matched.length + ' 篇文章';
+    render(matched, q);
+  }
+
+  fetch('{{ site.baseurl }}/search-index.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      docs = data;
+      const params = new URLSearchParams(window.location.search);
+      const initialQuery = params.get('q') || '';
+      if (initialQuery) {
+        input.value = initialQuery;
+        runSearch(initialQuery);
+      } else {
+        meta.textContent = '輸入關鍵字開始搜尋。共 ' + docs.length + ' 篇文章可搜尋。';
+        input.focus();
+      }
+    })
+    .catch(function(e) {
+      meta.textContent = '索引載入失敗：' + e.message;
+    });
+
+  let debounceTimer = null;
+  input.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function() {
+      const q = input.value;
+      const newUrl = q ? window.location.pathname + '?q=' + encodeURIComponent(q) : window.location.pathname;
+      history.replaceState(null, '', newUrl);
+      runSearch(q);
+    }, 150);
+  });
+})();
+</script>
