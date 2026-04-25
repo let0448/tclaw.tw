@@ -1,7 +1,50 @@
 <!-- Footer -->
 <footer>
   <div class="container">
-    <p>張桐嘉律師</p>
-    <p>© {{ site.time | date: "%Y" }} 張桐嘉律師 All Rights Reserved.</p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-brand">{{ site.author }}</p>
+        <p class="footer-firm">Attorney at Law</p>
+        <address class="footer-contact">
+          <p><span class="label">地址</span><span>{{ site.address }}</span></p>
+          <p><span class="label">電話</span><a href="tel:{{ site.phone_link }}">{{ site.phone }}</a></p>
+          <p><span class="label">時間</span><span>週一至週五 09:00–18:00</span></p>
+        </address>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">主要服務</h3>
+        <ul class="footer-links">
+          <li><a href="{{ site.baseurl }}/#about">律師簡介</a></li>
+          <li><a href="{{ site.baseurl }}/#services">服務項目</a></li>
+          <li><a href="{{ site.baseurl }}/#expertise">核心專長</a></li>
+          <li><a href="{{ site.baseurl }}/#process">委任流程</a></li>
+          <li><a href="{{ site.baseurl }}/#booking">預約諮詢</a></li>
+          <li><a href="{{ site.baseurl }}/articles">文章專欄</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">最新文章</h3>
+        <ul class="footer-links">
+          {% for post in site.posts limit:5 %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title | truncate: 24 }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">法律聲明</h3>
+        <p class="footer-disclaimer">本網站所載資訊僅供一般法律資訊參考，不構成具體個案之法律意見。具體案件請諮詢律師。</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {{ site.time | date: "%Y" }} {{ site.author }} All Rights Reserved.</p>
+      <div class="footer-legal">
+        <a href="{{ site.baseurl }}/disclaimer/">免責聲明</a>
+        <a href="{{ site.baseurl }}/privacy/">隱私權政策</a>
+      </div>
+    </div>
   </div>
 </footer>
