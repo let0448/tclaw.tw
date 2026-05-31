@@ -5,3 +5,4 @@ Gemfile.lock
 .sass-cache/
 .bundle/
 vendor/
+tmp_analysis/
