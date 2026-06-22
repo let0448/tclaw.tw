@@ -456,16 +456,16 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "{{ page.title }}",
-    "description": "{{ page.description }}",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
     "author": {
       "@type": "Person",
-      "name": "{{ site.author }}",
+      "name": {{ site.author | jsonify }},
       "url": "{{ site.url }}"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "{{ site.author }}",
+      "name": {{ site.author | jsonify }},
       "url": "{{ site.url }}"
     },
     "datePublished": "{{ page.date | date_to_xmlschema }}",
@@ -481,9 +481,9 @@
   {
     "@context": "https://schema.org",
     "@type": "Attorney",
-    "name": "{{ site.author }}",
+    "name": {{ site.author | jsonify }},
     "alternateName": "Chang Tong-Chia",
-    "description": "{{ site.description }}",
+    "description": {{ site.description | jsonify }},
     "url": "{{ site.url }}",
     "telephone": "+886-7-553-9799",
     "image": "{{ site.url }}/og-image.jpg",
