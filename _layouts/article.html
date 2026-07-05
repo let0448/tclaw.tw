@@ -13,12 +13,14 @@ layout: default
       {{ page.title }}
     </nav>
     <h1>{{ page.title }}</h1>
+    {% if page.description %}<p class="article-dek">{{ page.description }}</p>{% endif %}
     {% assign char_count = content | strip_html | strip_newlines | strip | size %}
     {% assign reading_min = char_count | divided_by: 500 | plus: 1 %}
     <div class="article-meta">
       {% if page.category %}<span class="article-category">{{ page.category }}</span>{% endif %}
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y 年 %m 月 %d 日" }}</time>
       <span class="reading-time">閱讀時間 約 {{ reading_min }} 分鐘</span>
+      <span class="article-byline">撰文 張桐嘉 律師 · 前法院書記官 8 年 · 高雄執業</span>
     </div>
   </div>
 </section>
