@@ -4,6 +4,12 @@ name: Deploy Jekyll site to Pages
 on:
   push:
     branches: ["main"]
+  # 每日重建,讓排程(未來日期)的文章在當天自動上線。
+  # Jekyll 預設跳過未來日期的 post,而 push 觸發的 build 只反映推送當下的日期,
+  # 沒有這條 cron 的話,排程文章會一直隱形到下次有人推東西為止。
+  # 22:00 UTC = 台灣時間隔日 06:00。
+  schedule:
+    - cron: "0 22 * * *"
   workflow_dispatch:
 
 permissions:
