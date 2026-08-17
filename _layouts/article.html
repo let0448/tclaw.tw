@@ -105,6 +105,12 @@ layout: default
 {% assign faq_items = "" %}
 {% assign paragraphs = content | split: "<h2" %}
 {% for block in paragraphs %}
+  {% comment %}
+    第一個 block 是第一個 <h2> 之前的序文,沒有 </h2> 可切,
+    整段序文會被當成 Question 名稱送進 FAQPage(序文含問號時觸發)。
+    序文不是問題,必須跳過。
+  {% endcomment %}
+  {% if forloop.first %}{% continue %}{% endif %}
   {% if block contains "？" %}
     {% assign after_tag = block | split: ">" | shift | join: ">" %}
     {% assign question = after_tag | split: "</h2>" | first | strip_html | strip %}
