@@ -101,7 +101,7 @@ layout: default
   </div>
 </section>
 
-<!-- FAQ Schema (auto-generated from H2 questions) -->
+<!-- FAQ Schema (auto-generated from H2 questions + 快速問答 pairs) -->
 {% assign faq_items = "" %}
 {% assign paragraphs = content | split: "<h2" %}
 {% for block in paragraphs %}
@@ -115,6 +115,11 @@ layout: default
     {% assign after_tag = block | split: ">" | shift | join: ">" %}
     {% assign question = after_tag | split: "</h2>" | first | strip_html | strip %}
     {% if question contains "？" %}
+      {% comment %}
+        H2 常寫成「問句？副標」(例:「肇事責任如何釐清？三個階段解析」),
+        副標不屬於問題本身。截到第一個問號為止,讓 Question 欄位是純問句。
+      {% endcomment %}
+      {% assign question = question | split: "？" | first | append: "？" %}
       {% assign answer_html = after_tag | split: "</h2>" | last %}
       {% assign first_p = answer_html | split: "</p>" | first | strip_html | strip | truncate: 200 %}
       {% if first_p.size > 0 %}
@@ -124,6 +129,26 @@ layout: default
         {% assign faq_items = faq_items | append: question | append: ":::" | append: first_p %}
       {% endif %}
     {% endif %}
+  {% endif %}
+{% endfor %}
+{% comment %}
+  「快速問答」區的問答對。原始檔寫成 **問：Q** 換行 答：A,
+  渲染後為 <p><strong>問：Q</strong>\n答：A</p>,不是 H2,
+  因此上面那段以 H2 為單位的解析完全抓不到。
+  答案內部可能還有 <strong>,所以不能用 split "</strong>" | last,
+  改以整段去頭的方式取出答案。
+{% endcomment %}
+{% assign qa_blocks = content | split: "<p><strong>問：" %}
+{% for qa in qa_blocks %}
+  {% if forloop.first %}{% continue %}{% endif %}
+  {% assign qa_question = qa | split: "</strong>" | first | strip_html | strip %}
+  {% assign qa_whole = qa | split: "</p>" | first | strip_html | strip %}
+  {% assign qa_answer = qa_whole | remove_first: qa_question | remove_first: "答：" | strip | truncate: 300 %}
+  {% if qa_question contains "？" and qa_answer.size > 0 %}
+    {% if faq_items != "" %}
+      {% assign faq_items = faq_items | append: "|||" %}
+    {% endif %}
+    {% assign faq_items = faq_items | append: qa_question | append: ":::" | append: qa_answer %}
   {% endif %}
 {% endfor %}
 {% if faq_items != "" %}
