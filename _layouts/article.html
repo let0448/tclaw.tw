@@ -19,6 +19,7 @@ layout: default
     <div class="article-meta">
       {% if page.category %}<span class="article-category">{{ page.category }}</span>{% endif %}
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y 年 %m 月 %d 日" }}</time>
+      {% if page.last_modified %}<time class="article-updated" datetime="{{ page.last_modified | date_to_xmlschema }}">更新於 {{ page.last_modified | date: "%Y 年 %m 月 %d 日" }}</time>{% endif %}
       <span class="reading-time">閱讀時間 約 {{ reading_min }} 分鐘</span>
       <span class="article-byline">撰文 張桐嘉 律師 · 前法院書記官 8 年 · 高雄執業</span>
     </div>
@@ -84,7 +85,10 @@ layout: default
         </div>
         
         <!-- Related Articles -->
-        {% assign related = site.posts | where_exp: "post", "post.url != page.url" %}
+        {% comment %} 同分類優先,不足再補其他分類的最新文章 {% endcomment %}
+        {% assign same_cat = site.posts | where: "category", page.category | where_exp: "post", "post.url != page.url" %}
+        {% assign other_cat = site.posts | where_exp: "post", "post.url != page.url" | where_exp: "post", "post.category != page.category" %}
+        {% assign related = same_cat | concat: other_cat %}
         {% if related.size > 0 %}
         <div class="sidebar-related">
           <h3>相關文章</h3>

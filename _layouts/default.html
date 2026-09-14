@@ -75,7 +75,7 @@
       --seal-dark: #8f2a20;
       --rule: #d6c9a8;           /* 卷宗細線 */
       --rule-soft: #e4dfd2;      /* 近白區細線 */
-      --mute: #8a8070;
+      --mute: #6b6254;          /* 輔助小字:原 #8a8070 對卷宗紙僅 3.33:1(未達 WCAG AA 4.5),加深後 5.13:1 */
       /* 舊名別名 */
       --navy: #211d18; --navy-mid: #33302a; --navy-light: #4a443c;
       --gold: #b3372b; --gold-light: #8f2a20; --gold-pale: #f4edda;
@@ -109,9 +109,11 @@
     .seal-box .col { writing-mode: vertical-rl; font-family: var(--lishu); font-weight: 400; font-size: 10.5px; line-height: 1; letter-spacing: .14em; white-space: nowrap; }
 
     /* ========== Navigation:卷宗紙 masthead ========== */
-    nav { position: fixed; top: 0; left: 0; right: 0; background: var(--dossier); border-bottom: 2.5px solid var(--ink); z-index: 1000; }
-    nav::after { content: ""; display: block; border-bottom: 1px solid var(--seal); }
-    nav.scrolled { box-shadow: 0 2px 14px rgba(33,29,24,.08); }
+    /* 限定 body 直屬的主選單:麵包屑也是 <nav>(在 .container 內),
+       用元素選擇器會讓它一起吃到 fixed,疊在主選單上 */
+    body > nav { position: fixed; top: 0; left: 0; right: 0; background: var(--dossier); border-bottom: 2.5px solid var(--ink); z-index: 1000; }
+    body > nav::after { content: ""; display: block; border-bottom: 1px solid var(--seal); }
+    body > nav.scrolled { box-shadow: 0 2px 14px rgba(33,29,24,.08); }
     .nav-container { max-width: 1080px; margin: 0 auto; padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
     .logo-text { display: flex; flex-direction: column; gap: 2px; }
