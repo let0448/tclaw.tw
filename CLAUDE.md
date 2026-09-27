@@ -150,6 +150,7 @@ bundle exec jekyll serve    # http://127.0.0.1:4000
 撰寫新文章請先 invoke `content-pipeline` skill — 它涵蓋選題、痛點矩陣、長尾關鍵字、批量選題、Threads 拆稿等完整流程。
 - 本 CLAUDE.md 為**規格約束**(寫成怎樣才合規)
 - `content-pipeline` 為**流程工具**(從選題到發佈)
+- 兩者衝突時以本檔為準。外部產出端的寫作規格是 `_drafts/BRIEF-external-writer-spec.md`,改本檔規格時同步改它
 
 ## 已知限制
 - github-pages gem 限制可用 plugin;需要自訂功能要改用 GitHub Actions 自行 build
