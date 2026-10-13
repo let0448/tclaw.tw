@@ -9,6 +9,19 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '{{ site.ga_id }}');
+    // 轉換事件：點電話、點線上預約、點服務頁與費用頁
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (h.indexOf('tel:') === 0) {
+        gtag('event', 'phone_click', { link_url: h, page_path: location.pathname });
+      } else if (h.indexOf('calendar.app.google') !== -1) {
+        gtag('event', 'booking_click', { link_url: h, page_path: location.pathname });
+      } else if (h.indexOf('/services/') !== -1 || h.indexOf('/fees/') !== -1) {
+        gtag('event', 'service_page_click', { link_url: h, page_path: location.pathname });
+      }
+    });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.seo_title %}{{ page.seo_title }}{% elsif page.title and page.url != "/" %}{{ page.title }}｜{{ site.author }}{% else %}{{ site.title }}{% endif %}</title>
@@ -221,6 +234,12 @@
     .booking-info h2 { font-family: var(--serif); font-size: 30px; font-weight: 900; letter-spacing: .03em; margin-bottom: 20px; }
     .booking-info h2::before { content: "預約 / BOOKING"; display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .24em; color: #d98b7f; margin-bottom: 12px; font-weight: 400; }
     .booking-info > p { font-size: 14.5px; line-height: 1.9; color: rgba(244,237,218,.78); margin-bottom: 28px; }
+    .service-more { display: inline-block; margin-top: 8px; font-size: 14px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
+    .service-more:hover { color: var(--seal); border-color: var(--seal); }
+    .pricing-note { margin: -16px 0 24px; font-size: 14px; }
+    .pricing-note a { color: var(--dossier); border-bottom: 1px solid rgba(244,237,218,.5); text-decoration: none; }
+    .sidebar-svc { display: block; margin-top: 14px; font-size: 13.5px; color: rgba(244,237,218,.85); text-decoration: none; border-top: 1px solid rgba(244,237,218,.2); padding-top: 12px; }
+    .sidebar-svc:hover { color: #fff; }
     .pricing-card { background: transparent; border: 1px solid rgba(244,237,218,.35); border-radius: 0; padding: 6px 24px; margin-bottom: 28px; }
     .pricing-item { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; }
     .pricing-item:not(:last-child) { border-bottom: 1px solid rgba(244,237,218,.18); }

@@ -82,6 +82,14 @@ layout: default
             {{ site.phone }}
           </a>
           <a href="{{ site.booking_url }}" target="_blank" class="btn btn-secondary" style="width:100%; justify-content:center; border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8);">預約諮詢</a>
+          {% assign svc_url = nil %}
+          {% case page.category %}
+            {% when "強制執行" %}{% assign svc_url = "/services/enforcement/" %}
+            {% when "不動產法律" %}{% assign svc_url = "/services/real-estate/" %}
+            {% when "勞資爭議" %}{% assign svc_url = "/services/labor/" %}
+          {% endcase %}
+          {% if svc_url %}<a class="sidebar-svc" href="{{ site.baseurl }}{{ svc_url }}">這類案件的常見情況與諮詢準備 →</a>{% endif %}
+          <a class="sidebar-svc" href="{{ site.baseurl }}/fees/">律師費與法院規費怎麼算 →</a>
         </div>
         
         <!-- Related Articles -->
