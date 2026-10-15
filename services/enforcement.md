@@ -14,6 +14,8 @@ permalink: /services/enforcement/
 - 擔心對方在訴訟期間脫產，想先凍結財產：[假扣押怎麼聲請](/articles/provisional-attachment-legal-guide/)
 - 對方把房子過戶給家人：[對方脫產怎麼辦](/articles/fraudulent-transfer-legal-guide/)
 - 法拍分配表上的債權被少算或排在後面：[法拍分配表異議](/articles/auction-distribution-objection-legal-guide/)
+- 房子拍定了，錢什麼時候會撥下來：{% include post-link.html url="/articles/auction-proceeds-timeline-legal-guide/" text="法拍拍定後多久拿到錢" %}
+- 和解或調解後，對方分期付到一半不付：{% include post-link.html url="/articles/settlement-installment-default-legal-guide/" text="和解分期對方不付" %}
 - 企業應收帳款，要決定談分期、提告還是保全：[企業貨款收不回來](/articles/overdue-receivables-installment-legal-guide/)
 
 ## 債務人：被查封、被扣薪、房子要被拍賣

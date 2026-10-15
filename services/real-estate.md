@@ -27,6 +27,7 @@ permalink: /services/real-estate/
 
 - 房客欠租、到期不搬：[房客不搬怎麼辦](/articles/tenant-eviction-legal-guide/)
 - 房東不還押金：[押金討回](/articles/tenant-deposit-recovery-legal-guide/)
+- 店面的押金、提前解約、裝潢與頂讓：{% include post-link.html url="/articles/commercial-lease-legal-guide/" text="店面租約糾紛" %}
 
 ## 預售屋：買方與建商
 
