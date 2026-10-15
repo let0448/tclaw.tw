@@ -143,8 +143,10 @@ bundle exec jekyll serve    # http://127.0.0.1:4000
 內鏈只靠新文往舊文連會單向累積,新文變孤兒。**新文上線後,回頭在既有文章補上指向它的內鏈,才算發布完成。**
 - 目標至少 2 篇連入;找不到自然位置就據實回報,不硬塞、不另起「延伸閱讀」清單
 - 外科手術式:錨文字包住既有字句,錨文字用實際爭點(不用「點此」);不改法律內容、不動 H2、不改段落結構
-- 排程文(未來日期):等新文實際上線後再補回指,否則舊文會出現死連結
-- 查連入數:`grep -l "](/articles/{slug}/" _posts/*.md | grep -v "{slug}" | wc -l`
+- 排程文(未來日期):舊文改用 `{% include post-link.html url="/articles/{slug}/" text="錨文字" %}`,
+  目標文章上線前只顯示文字,每日 cron 重建時自動變成連結,可以和新文同一次推送;
+  不要對未來日期的文章用一般 markdown 連結,否則上線前是死連結。推送前用 `jekyll build --future` 確認會連上
+- 查連入數:`grep -lE "\]\(/articles/{slug}/|url=\"/articles/{slug}/" _posts/*.md | grep -v "{slug}" | wc -l`
 
 ## 與 content-pipeline skill 協作
 撰寫新文章請先 invoke `content-pipeline` skill — 它涵蓋選題、痛點矩陣、長尾關鍵字、批量選題、Threads 拆稿等完整流程。

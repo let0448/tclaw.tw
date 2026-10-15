@@ -1,0 +1,7 @@
+{%- comment -%}
+排程文的回指內鏈：目標文章已上線（在 site.posts 裡）才輸出連結，否則只輸出文字。
+用法：{% include post-link.html url="/articles/xxx-legal-guide/" text="錨文字" %}
+未來日期的文章不在 site.posts 裡，每日 cron 重建時會自動變成連結。
+{%- endcomment -%}
+{%- assign _pl_target = site.posts | where: "url", include.url | first -%}
+{%- if _pl_target -%}<a href="{{ include.url }}">{{ include.text }}</a>{%- else -%}{{ include.text }}{%- endif -%}
