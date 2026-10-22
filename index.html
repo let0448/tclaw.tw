@@ -1,6 +1,11 @@
 ---
 layout: default
 ---
+{% comment %}執業年資自 2017 年 6 月起算,每日 cron 重建時自動更新;書記官 8 年固定{% endcomment %}
+{% assign now_y = site.time | date: "%Y" | plus: 0 %}{% assign now_m = site.time | date: "%m" | plus: 0 %}
+{% assign practice_years = now_y | minus: 2017 %}{% if now_m < 6 %}{% assign practice_years = practice_years | minus: 1 %}{% endif %}
+{% assign total_years = practice_years | plus: 8 %}
+{% assign zh_nums = "零,一,二,三,四,五,六,七,八,九,十,十一,十二,十三,十四,十五,十六,十七,十八,十九,二十" | split: "," %}
 
 <!-- Hero:卷宗封面 -->
 <section class="cover" id="hero">
@@ -13,8 +18,8 @@ layout: default
       <div class="cover-lead">
         <span class="kicker">執業領域</span>
         <h1>把卷宗讀到底，<br>把權益<span class="accent">爭到底</span></h1>
-        <p class="dek">在法院體系內工作八年、執業律師九年。知道書狀會被怎麼讀、程序會怎麼走，是為當事人攻防時最實在的底氣。</p>
-        <p class="caseline"><b>張桐嘉</b> 律師　|　法院書記官 8 年 · 執業律師 9 年　|　諮詢 NT$6,000/hr · 訴訟委任 NT$80,000 起</p>
+        <p class="dek">在法院體系內工作八年、執業律師{{ zh_nums[practice_years] }}年。知道書狀會被怎麼讀、程序會怎麼走，是為當事人攻防時最實在的底氣。</p>
+        <p class="caseline"><b>張桐嘉</b> 律師　|　法院書記官 8 年 · 執業律師 {{ practice_years }} 年　|　諮詢 NT$6,000/hr · 訴訟委任 NT$80,000 起</p>
         <div class="cover-cta">
           <a href="#booking" class="btn btn-primary">預約諮詢</a>
           <a href="tel:{{ site.phone_link }}" class="btn btn-secondary">{{ site.phone }}</a>
@@ -32,9 +37,9 @@ layout: default
       </div>
     </div>
     <div class="digest">
-      <div class="dg"><div class="n">17</div><div class="l">年法律實務資歷</div></div>
+      <div class="dg"><div class="n">{{ total_years }}</div><div class="l">年法律實務資歷</div></div>
       <div class="dg"><div class="n">8</div><div class="l">年法院書記官</div></div>
-      <div class="dg"><div class="n">500+</div><div class="l">服務案件數</div></div>
+      <div class="dg"><div class="n">300+</div><div class="l">件裁判書具名承辦</div></div>
     </div>
   </div>
 </section>
