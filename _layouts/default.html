@@ -486,6 +486,8 @@
       .process-step:nth-child(2n) { border-right: none; }
       .process-step:nth-child(-n+2) { border-bottom: 1px solid var(--rule-soft); }
       .booking-container { grid-template-columns: 1fr; gap: 44px; }
+      .calendar-embed { order: -1; min-height: 0; }
+      .calendar-fallback { padding: 36px 24px; }
       .contact-info { grid-template-columns: 1fr; }
       .contact-item { border-right: none; border-bottom: 1px solid var(--rule-soft); }
       .contact-item:last-child { border-bottom: none; }
@@ -668,7 +670,7 @@
 
   <!-- Floating CTA (hidden on article pages to avoid duplicating sidebar CTA) -->
   {% unless page.layout == "article" %}
-  <a href="{% if page.url == '/' %}#booking{% else %}{{ site.url }}/#booking{% endif %}" class="floating-cta" id="floatingCta">
+  <a href="{{ site.booking_url }}" target="_blank" rel="noopener" class="floating-cta" id="floatingCta">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="16" y1="2" x2="16" y2="6"></line>
