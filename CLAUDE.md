@@ -4,7 +4,7 @@
 
 ## 技術棧
 - Jekyll 3.10.0(綁定 github-pages gem 232,與 GH Pages 環境一致)
-- Ruby 3.1(CI workflow 指定)
+- Ruby 3.3(CI workflow 指定,對齊 GitHub Pages 官方環境)
 - Markdown:kramdown 2.4.0(GFM input、auto_ids、rouge 3.30.0 高亮)
 - Plugins:僅 `jekyll-feed`、`jekyll-sitemap`(github-pages 限制,**不可加自訂 plugin**)
 - 無 npm/yarn,純 Ruby Jekyll
