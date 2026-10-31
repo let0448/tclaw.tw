@@ -8,7 +8,7 @@
 - Markdown:kramdown 2.4.0(GFM input、auto_ids、rouge 3.30.0 高亮)
 - Plugins:僅 `jekyll-feed`、`jekyll-sitemap`(github-pages 限制,**不可加自訂 plugin**)
 - 無 npm/yarn,純 Ruby Jekyll
-- Gemfile.lock 在 .gitignore(GH Pages 環境自行解析鎖版本)
+- `Gemfile.lock` 進版控(2026-10-31 起;含 x64-mingw-ucrt 與 x86_64-linux 兩平台),CI 照鎖定版本安裝,避免上游套件發新版讓每日排程 build 突然壞掉。本機 `bundle update` 後要連同 lockfile 一起推
 
 ## 目錄
 - `_posts/` — 文章源檔
@@ -156,5 +156,5 @@ bundle exec jekyll serve    # http://127.0.0.1:4000
 
 ## 已知限制
 - github-pages gem 限制可用 plugin;需要自訂功能要改用 GitHub Actions 自行 build
-- `Gemfile.lock` 在 .gitignore — 本機 gem 升級不影響線上版本
+- Ruby 3.3 預計 2027-03-31 停止維護。屆時查 pages.github.com/versions 官方用哪一版,CI 的 `ruby-version` 跟著改、重產 lockfile
 - 自製搜尋(`search.html` + `search-index.json`),新增文章後須確認搜尋索引產生
