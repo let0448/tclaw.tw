@@ -6,7 +6,7 @@ last_modified: 2026-10-15
 category: 勞資爭議
 ---
 
-勞資爭議的實務現場有個明顯現象：**勞工這幾年對自己的權益愈來愈清楚，反而是不少雇主還停留在「公司是我的，人我想換就換」的認知**，等到收到調解通知或起訴狀，才知道那句「明天不用來了」是有代價的。
+勞資爭議的實務現場有個明顯現象：**勞工這幾年對自己的權益愈來愈清楚，反而是不少雇主還停留在「公司是我的，人我想換就換」的認知**，等到{% include post-link.html url="/articles/labor-dispute-mediation-employer-legal-guide/" text="收到調解通知" %}或起訴狀，才知道那句「明天不用來了」是有代價的。
 
 這篇從雇主角度整理最常見、也最貴的幾個動作。勞工端的救濟與法律說明，見[被公司無預警開除怎麼辦](/articles/illegal-dismissal-labor-rights-legal-guide/)。
 
